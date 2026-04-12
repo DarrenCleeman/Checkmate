@@ -86,12 +86,25 @@ export class IncidentService implements IIncidentService {
 				const incident = {
 					monitorId: monitor.id,
 					teamId: monitor.teamId,
-					startTime: Date.now().toString(),
+					startTime: new Date().toISOString(),
 					status: true,
 					statusCode,
 					message,
 				};
-				return await this.incidentsRepository.create(incident);
+				try {
+					return await this.incidentsRepository.create(incident);
+				} catch (error: unknown) {
+					// Handle race condition: if a duplicate active incident was created
+					// concurrently, the unique partial index will reject this insert.
+					// Fall back to returning the existing active incident.
+					if (error instanceof Error && "code" in error && (error as any).code === 11000) {
+						const existing = await this.incidentsRepository.findActiveByMonitorId(monitor.id, monitor.teamId);
+						if (existing) {
+							return existing;
+						}
+					}
+					throw error;
+				}
 			}
 		}
 
@@ -100,7 +113,7 @@ export class IncidentService implements IIncidentService {
 				return null;
 			}
 			activeIncident.status = false;
-			activeIncident.endTime = Date.now().toString();
+			activeIncident.endTime = new Date().toISOString();
 			activeIncident.resolutionType = "automatic";
 			return await this.incidentsRepository.updateById(activeIncident.id, activeIncident.teamId, activeIncident);
 		}
@@ -151,7 +164,7 @@ export class IncidentService implements IIncidentService {
 			incident.resolvedBy = userId;
 			incident.resolvedByEmail = userEmail || null;
 			incident.comment = comment || null;
-			incident.endTime = Date.now().toString();
+			incident.endTime = new Date().toISOString();
 
 			const resolvedIncident = await this.incidentsRepository.updateById(incident.id, teamId, incident);
 

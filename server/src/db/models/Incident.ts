@@ -77,6 +77,10 @@ const IncidentSchema = new Schema<IncidentDocument>(
 );
 
 IncidentSchema.index({ monitorId: 1, status: 1 });
+IncidentSchema.index(
+	{ monitorId: 1, teamId: 1 },
+	{ unique: true, partialFilterExpression: { status: true } }
+);
 IncidentSchema.index({ teamId: 1, status: 1 });
 IncidentSchema.index({ teamId: 1, startTime: -1 });
 IncidentSchema.index({ status: 1, startTime: -1 });
