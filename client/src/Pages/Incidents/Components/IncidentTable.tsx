@@ -16,6 +16,7 @@ import Typography from "@mui/material/Typography";
 import { useTheme } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import { getMonitorPath } from "@/Utils/MonitorUtils";
+import { getIncidentsDuration } from "@/Pages/Incidents/utils";
 
 interface IncidentsTableProps {
 	title?: string;
@@ -115,7 +116,7 @@ export const IncidentsTable = ({
 				id: "startTime",
 				content: t("pages.incidents.table.headers.startTime"),
 				render: (row) => {
-					return formatDateWithTz(row.createdAt, "YYYY-MM-DD HH:mm:ss A", uiTimezone);
+					return formatDateWithTz(row.startTime, "YYYY-MM-DD HH:mm:ss A", uiTimezone);
 				},
 			},
 			{
@@ -125,7 +126,32 @@ export const IncidentsTable = ({
 					if (row.endTime) {
 						return formatDateWithTz(row.endTime, "YYYY-MM-DD HH:mm:ss A", uiTimezone);
 					}
-					return "-";
+					return row.status ? (
+						<Typography
+							variant="body2"
+							sx={{ color: theme.palette.warning.main, fontStyle: "italic" }}
+						>
+							{t("pages.incidents.table.ongoing")}
+						</Typography>
+					) : "-";
+				},
+			},
+			{
+				id: "duration",
+				content: t("pages.incidents.table.headers.duration"),
+				render: (row) => {
+					const duration = getIncidentsDuration(row);
+					if (row.status) {
+						return (
+							<Typography
+								variant="body2"
+								sx={{ color: theme.palette.warning.main }}
+							>
+								{duration}
+							</Typography>
+						);
+					}
+					return duration;
 				},
 			},
 			{

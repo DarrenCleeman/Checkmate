@@ -127,6 +127,30 @@ export const CardDetails = ({ incident, monitor, sx }: CardDetailsProps) => {
 					</Grid>
 				</Stack>
 			</BaseBox>
+			{incident.status && (
+				<BaseBox padding={LAYOUT.MD}>
+					<Stack gap={theme.spacing(LAYOUT.XS)}>
+						<Typography textTransform={"uppercase"}>
+							{t("pages.incidents.dialog.details.ongoingStatus")}
+						</Typography>
+						<Divider />
+						<Grid
+							container
+							spacing={theme.spacing(LAYOUT.MD)}
+							alignItems="center"
+						>
+							<Grid size={2}>
+								<Typography>{t("pages.incidents.dialog.details.ongoingSince")}</Typography>
+							</Grid>
+							<Grid size={10}>
+								<Typography sx={{ color: theme.palette.warning.main, fontStyle: "italic" }}>
+									{formatDateWithTz(incident.startTime, "D MMM YYYY, h:mm A", uiTimezone)}
+								</Typography>
+							</Grid>
+						</Grid>
+					</Stack>
+				</BaseBox>
+			)}
 			{!incident.status && (
 				<BaseBox padding={LAYOUT.MD}>
 					<Stack gap={theme.spacing(LAYOUT.XS)}>

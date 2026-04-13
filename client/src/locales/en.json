@@ -657,6 +657,8 @@
 					"downtime": "Downtime:",
 					"message": "Message:",
 					"monitor": "Monitor:",
+					"ongoingSince": "Ongoing since:",
+					"ongoingStatus": "Ongoing incident",
 					"overview": "Overview",
 					"resolutionDetails": "Resolution details",
 					"resolutionType": "Type:",
@@ -710,11 +712,13 @@
 				},
 				"activeIncidents": "Active Incidents",
 				"headers": {
+					"duration": "Duration",
 					"endTime": "End Time",
 					"resolutionType": "Resolution Type",
 					"startTime": "Start Time",
 					"statusCode": "Status Code"
 				},
+				"ongoing": "Ongoing",
 				"resolvedIncidents": "Resolved Incidents",
 				"status": {
 					"active": "Active",
