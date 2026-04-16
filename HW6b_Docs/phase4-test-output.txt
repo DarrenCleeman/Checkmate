@@ -1,0 +1,177 @@
+
+> server@1.0.0 test
+> NODE_OPTIONS=--experimental-vm-modules c8 jest --runInBand
+
+(node:4687) ExperimentalWarning: VM Modules is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+FAIL test/teamsProvider.test.ts
+  ● TeamsProvider › sendTestAlert › sends an Adaptive Card test message and returns true on success
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: true
+    Received: false
+
+      83 | 			const notification = createNotification();
+      84 | 			const result = await provider.sendTestAlert(notification);
+    > 85 | 			expect(result).toBe(true);
+         | 			               ^
+      86 | 			expect(gotPost).toHaveBeenCalledTimes(1);
+      87 |
+      88 | 			const [url, options] = gotPost.mock.calls[0] as [string, { json: any; headers: any }];
+
+      at test/teamsProvider.test.ts:85:19
+      at fulfilled (test/teamsProvider.test.ts:4:58)
+
+  ● TeamsProvider › sendMessage › sends a well-formed Adaptive Card and returns true
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: true
+    Received: false
+
+      131 | 			const result = await provider.sendMessage(notification, message);
+      132 |
+    > 133 | 			expect(result).toBe(true);
+          | 			               ^
+      134 | 			expect(gotPost).toHaveBeenCalledTimes(1);
+      135 |
+      136 | 			const [url, options] = gotPost.mock.calls[0] as [string, { json: any }];
+
+      at test/teamsProvider.test.ts:133:19
+      at fulfilled (test/teamsProvider.test.ts:4:58)
+
+  ● TeamsProvider › sendMessage › omits actions when no incident is present
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: true
+    Received: false
+
+      183 | 			});
+      184 | 			const result = await provider.sendMessage(notification, message);
+    > 185 | 			expect(result).toBe(true);
+          | 			               ^
+      186 |
+      187 | 			const [, options] = gotPost.mock.calls[0] as [string, { json: any }];
+      188 | 			const card = options.json.attachments[0].content;
+
+      at test/teamsProvider.test.ts:185:19
+      at fulfilled (test/teamsProvider.test.ts:4:58)
+
+  ● TeamsProvider › sendMessage › includes threshold breaches when present
+
+    TypeError: undefined is not iterable (cannot read property Symbol(Symbol.iterator))
+
+      213 | 			await provider.sendMessage(notification, message);
+      214 |
+    > 215 | 			const [, options] = gotPost.mock.calls[0] as [string, { json: any }];
+          | 			                    ^
+      216 | 			const card = options.json.attachments[0].content;
+      217 |
+      218 | 			// Title should use "warning" color
+
+      at test/teamsProvider.test.ts:215:24
+      at fulfilled (test/teamsProvider.test.ts:4:58)
+
+  ● TeamsProvider › sendMessage › maps severity to correct Adaptive Card colors
+
+    TypeError: undefined is not iterable (cannot read property Symbol(Symbol.iterator))
+
+      246 | 				await provider.sendMessage(notification, message);
+      247 |
+    > 248 | 				const [, options] = gotPost.mock.calls[0] as [string, { json: any }];
+          | 				                    ^
+      249 | 				const card = options.json.attachments[0].content;
+      250 | 				expect(card.body[0].color).toBe(expected);
+      251 | 			}
+
+      at test/teamsProvider.test.ts:248:25
+      at fulfilled (test/teamsProvider.test.ts:4:58)
+
+FAIL test/monitorService.test.ts
+  ● MonitorService › getMonitorsWithChecksByTeamId › returns monitors enriched with normalized checks
+
+    expect(received).toHaveProperty(path)
+
+    Expected path: "checks"
+    Received path: []
+
+    Received value: {"id": "m1", "interval": 60000, "name": "Monitor 1", "recentChecks": []}
+
+       99 | 			expect(result).toMatchObject({ count: 2 });
+      100 | 			expect(result.monitors).toHaveLength(2);
+    > 101 | 			expect(result.monitors[0]).toHaveProperty("checks");
+          | 			                           ^
+      102 | 			expect(result.monitors[0].checks.length).toBeGreaterThan(0);
+      103 | 			expect(result.monitors[0].checks[0]).toEqual(
+      104 | 				expect.objectContaining({
+
+      at test/monitorService.test.ts:101:31
+      at fulfilled (test/monitorService.test.ts:4:58)
+
+  ● MonitorService › getMonitorsWithChecksByTeamId summary › includes summary and monitors with checks
+
+    expect(received).toEqual(expected) // deep equality
+
+    - Expected  - 1
+    + Received  + 1
+
+    @@ -1,11 +1,11 @@
+      Object {
+        "count": 1,
+        "monitors": Array [
+          Object {
+    -       "checks": Array [],
+            "id": "m1",
+    +       "recentChecks": Array [],
+            "type": "http",
+          },
+        ],
+        "summary": Object {
+          "downMonitors": 0,
+
+      142 | 			const service = createService({ monitorsRepository, checksRepository });
+      143 | 			const result = await service.getMonitorsWithChecksByTeamId({ teamId: "team" });
+    > 144 | 			expect(result).toEqual({
+          | 			               ^
+      145 | 				summary: { totalMonitors: 1, upMonitors: 1, downMonitors: 0, pausedMonitors: 0 },
+      146 | 				count: 1,
+      147 | 				monitors: [{ id: "m1", type: "http", checks: [] }],
+
+      at test/monitorService.test.ts:144:19
+      at fulfilled (test/monitorService.test.ts:4:58)
+
+  ● MonitorService › getUptimeDetailsById › returns monitorData and monitorStats with expected shape
+
+    TypeError: this.checksRepository.findByDateRangeAndMonitorId is not a function
+
+      217 | 		const rangeKey = (dateRange as DateRangeKey) ?? "recent";
+      218 | 		const { start, end } = this.getDateRange(rangeKey);
+    > 219 | 		const checksData = await this.checksRepository.findByDateRangeAndMonitorId(monitor.id, start, end, this.getDateFormat(rangeKey), {
+          | 		                                               ^
+      220 | 			type: monitor.type,
+      221 | 		});
+      222 | 		const monitorStats = await this.monitorStatsRepository.findByMonitorId(monitor.id);
+
+      at MonitorService.<anonymous> (src/service/business/monitorService.ts:219:50)
+      at fulfilled (src/service/business/monitorService.ts:4:58)
+
+PASS test/incidentService.test.ts
+FAIL test/superSimpleQueueHelper.test.ts
+  ● Test suite failed to run
+
+    SyntaxError: The requested module '../src/service/infrastructure/SuperSimpleQueue/SuperSimpleQueueHelper.ts' does not provide an export named 'default'
+
+      at async Runtime.linkAndEvaluateModule (node_modules/jest-runtime/build/index.js:684:5)
+
+Test Suites: 3 failed, 1 passed, 4 total
+Tests:       8 failed, 23 passed, 31 total
+Snapshots:   0 total
+Time:        1.087 s, estimated 2 s
+Ran all test suites.
+----------|---------|----------|---------|---------|-------------------
+File      | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s 
+----------|---------|----------|---------|---------|-------------------
+All files |       0 |        0 |       0 |       0 |                   
+----------|---------|----------|---------|---------|-------------------

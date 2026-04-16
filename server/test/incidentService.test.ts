@@ -301,4 +301,163 @@ describe("IncidentService", () => {
 			expect(new Date(updateArg.endTime!).toISOString()).toBe(updateArg.endTime);
 		});
 	});
+
+	// -----------------------------------------------------------------------
+	// Integration / Scenario tests
+	// -----------------------------------------------------------------------
+	describe("scenario: sustained downtime (10 consecutive checks)", () => {
+		it("creates exactly one incident across 10 failed checks", async () => {
+			const created = makeIncident();
+			// First check: no active incident → create
+			incidentsRepo.findActiveByMonitorId.mockResolvedValueOnce(null);
+			incidentsRepo.create.mockResolvedValue(created);
+
+			// Checks 2-10: active incident exists → dedup
+			for (let i = 1; i < 10; i++) {
+				incidentsRepo.findActiveByMonitorId.mockResolvedValueOnce(created);
+			}
+
+			const decision = makeDecision({ shouldCreateIncident: true, incidentReason: "status_down" });
+			const monitor = makeMonitor();
+
+			const results: (Incident | null)[] = [];
+			for (let i = 0; i < 10; i++) {
+				results.push(await service.handleIncident(monitor, 500, decision));
+			}
+
+			// All 10 calls return the same incident
+			for (const r of results) {
+				expect(r).toEqual(created);
+			}
+			// create() called only once (first check)
+			expect(incidentsRepo.create).toHaveBeenCalledTimes(1);
+			// findActiveByMonitorId called 10 times (once per check)
+			expect(incidentsRepo.findActiveByMonitorId).toHaveBeenCalledTimes(10);
+		});
+	});
+
+	describe("scenario: down → recovery → re-failure", () => {
+		it("produces two incidents with the first resolved and the second active", async () => {
+			const incident1 = makeIncident({ id: "inc1" });
+			const incident1Resolved = makeIncident({
+				id: "inc1",
+				status: false,
+				endTime: "2025-04-10T13:00:00.000Z",
+				resolutionType: "automatic",
+			});
+			const incident2 = makeIncident({ id: "inc2" });
+
+			// Step 1: monitor goes down → no active → create incident1
+			incidentsRepo.findActiveByMonitorId.mockResolvedValueOnce(null);
+			incidentsRepo.create.mockResolvedValueOnce(incident1);
+
+			const createDecision = makeDecision({ shouldCreateIncident: true, incidentReason: "status_down" });
+			const result1 = await service.handleIncident(makeMonitor(), 500, createDecision);
+			expect(result1).toEqual(incident1);
+			expect(incidentsRepo.create).toHaveBeenCalledTimes(1);
+
+			// Step 2: monitor recovers → resolve incident1
+			incidentsRepo.findActiveByMonitorId.mockResolvedValueOnce(incident1);
+			incidentsRepo.updateById.mockResolvedValueOnce(incident1Resolved);
+
+			const resolveDecision = makeDecision({ shouldResolveIncident: true });
+			const result2 = await service.handleIncident(makeMonitor({ status: "up" } as any), 200, resolveDecision);
+			expect(result2?.status).toBe(false);
+			expect(result2?.endTime).toBeDefined();
+			expect(result2?.resolutionType).toBe("automatic");
+
+			// Step 3: monitor goes down again → no active (inc1 resolved) → create incident2
+			incidentsRepo.findActiveByMonitorId.mockResolvedValueOnce(null);
+			incidentsRepo.create.mockResolvedValueOnce(incident2);
+
+			const result3 = await service.handleIncident(makeMonitor(), 500, createDecision);
+			expect(result3).toEqual(incident2);
+			expect(result3?.id).not.toBe(incident1.id);
+			expect(incidentsRepo.create).toHaveBeenCalledTimes(2);
+		});
+	});
+
+	describe("scenario: rapid oscillation (down/up/down/up/down)", () => {
+		it("creates and resolves incidents correctly through multiple state changes", async () => {
+			const inc1 = makeIncident({ id: "inc1" });
+			const inc1Resolved = makeIncident({ id: "inc1", status: false, endTime: "2025-04-10T12:05:00.000Z", resolutionType: "automatic" });
+			const inc2 = makeIncident({ id: "inc2" });
+			const inc2Resolved = makeIncident({ id: "inc2", status: false, endTime: "2025-04-10T12:15:00.000Z", resolutionType: "automatic" });
+			const inc3 = makeIncident({ id: "inc3" });
+
+			const createDecision = makeDecision({ shouldCreateIncident: true, incidentReason: "status_down" });
+			const resolveDecision = makeDecision({ shouldResolveIncident: true });
+			const downMonitor = makeMonitor();
+			const upMonitor = makeMonitor({ status: "up" } as any);
+
+			// Down #1 → create inc1
+			incidentsRepo.findActiveByMonitorId.mockResolvedValueOnce(null);
+			incidentsRepo.create.mockResolvedValueOnce(inc1);
+			const r1 = await service.handleIncident(downMonitor, 500, createDecision);
+			expect(r1?.id).toBe("inc1");
+
+			// Up #1 → resolve inc1
+			incidentsRepo.findActiveByMonitorId.mockResolvedValueOnce(inc1);
+			incidentsRepo.updateById.mockResolvedValueOnce(inc1Resolved);
+			const r2 = await service.handleIncident(upMonitor, 200, resolveDecision);
+			expect(r2?.status).toBe(false);
+
+			// Down #2 → create inc2
+			incidentsRepo.findActiveByMonitorId.mockResolvedValueOnce(null);
+			incidentsRepo.create.mockResolvedValueOnce(inc2);
+			const r3 = await service.handleIncident(downMonitor, 500, createDecision);
+			expect(r3?.id).toBe("inc2");
+
+			// Up #2 → resolve inc2
+			incidentsRepo.findActiveByMonitorId.mockResolvedValueOnce(inc2);
+			incidentsRepo.updateById.mockResolvedValueOnce(inc2Resolved);
+			const r4 = await service.handleIncident(upMonitor, 200, resolveDecision);
+			expect(r4?.status).toBe(false);
+
+			// Down #3 → create inc3
+			incidentsRepo.findActiveByMonitorId.mockResolvedValueOnce(null);
+			incidentsRepo.create.mockResolvedValueOnce(inc3);
+			const r5 = await service.handleIncident(downMonitor, 500, createDecision);
+			expect(r5?.id).toBe("inc3");
+			expect(r5?.status).toBe(true);
+
+			// Total: 3 incidents created, 2 resolved
+			expect(incidentsRepo.create).toHaveBeenCalledTimes(3);
+			expect(incidentsRepo.updateById).toHaveBeenCalledTimes(2);
+		});
+	});
+
+	describe("scenario: concurrent race condition", () => {
+		it("two simultaneous create attempts result in one incident via fallback", async () => {
+			const existing = makeIncident();
+			const duplicateKeyError = new Error("E11000 duplicate key error");
+			(duplicateKeyError as any).code = 11000;
+
+			// Both checks see no active incident initially
+			incidentsRepo.findActiveByMonitorId
+				.mockResolvedValueOnce(null)   // Check A: initial lookup
+				.mockResolvedValueOnce(null)   // Check B: initial lookup
+				.mockResolvedValueOnce(existing); // Check B: fallback after dup error
+
+			// Check A succeeds, Check B hits duplicate key
+			incidentsRepo.create
+				.mockResolvedValueOnce(existing)
+				.mockRejectedValueOnce(duplicateKeyError);
+
+			const decision = makeDecision({ shouldCreateIncident: true, incidentReason: "status_down" });
+			const monitor = makeMonitor();
+
+			// Simulate two concurrent calls
+			const [resultA, resultB] = await Promise.all([
+				service.handleIncident(monitor, 500, decision),
+				service.handleIncident(monitor, 500, decision),
+			]);
+
+			// Both return the same incident
+			expect(resultA).toEqual(existing);
+			expect(resultB).toEqual(existing);
+			// create() attempted twice, but only one succeeded
+			expect(incidentsRepo.create).toHaveBeenCalledTimes(2);
+		});
+	});
 });

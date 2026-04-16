@@ -1,0 +1,126 @@
+
+> server@1.0.0 test
+> NODE_OPTIONS=--experimental-vm-modules c8 jest --runInBand
+
+(node:496952) ExperimentalWarning: VM Modules is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+FAIL test/teamsProvider.test.ts
+  ● TeamsProvider › sendTestAlert › sends an Adaptive Card test message and returns true on success
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: true
+    Received: false
+
+      83 | 			const notification = createNotification();
+      84 | 			const result = await provider.sendTestAlert(notification);
+    > 85 | 			expect(result).toBe(true);
+         | 			               ^
+      86 | 			expect(gotPost).toHaveBeenCalledTimes(1);
+      87 |
+      88 | 			const [url, options] = gotPost.mock.calls[0] as [string, { json: any; headers: any }];
+
+      at test/teamsProvider.test.ts:85:19
+      at fulfilled (test/teamsProvider.test.ts:4:58)
+
+  ● TeamsProvider › sendMessage › sends a well-formed Adaptive Card and returns true
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: true
+    Received: false
+
+      131 | 			const result = await provider.sendMessage(notification, message);
+      132 |
+    > 133 | 			expect(result).toBe(true);
+          | 			               ^
+      134 | 			expect(gotPost).toHaveBeenCalledTimes(1);
+      135 |
+      136 | 			const [url, options] = gotPost.mock.calls[0] as [string, { json: any }];
+
+      at test/teamsProvider.test.ts:133:19
+      at fulfilled (test/teamsProvider.test.ts:4:58)
+
+  ● TeamsProvider › sendMessage › omits actions when no incident is present
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: true
+    Received: false
+
+      183 | 			});
+      184 | 			const result = await provider.sendMessage(notification, message);
+    > 185 | 			expect(result).toBe(true);
+          | 			               ^
+      186 |
+      187 | 			const [, options] = gotPost.mock.calls[0] as [string, { json: any }];
+      188 | 			const card = options.json.attachments[0].content;
+
+      at test/teamsProvider.test.ts:185:19
+      at fulfilled (test/teamsProvider.test.ts:4:58)
+
+  ● TeamsProvider › sendMessage › includes threshold breaches when present
+
+    TypeError: undefined is not iterable (cannot read property Symbol(Symbol.iterator))
+
+      213 | 			await provider.sendMessage(notification, message);
+      214 |
+    > 215 | 			const [, options] = gotPost.mock.calls[0] as [string, { json: any }];
+          | 			                    ^
+      216 | 			const card = options.json.attachments[0].content;
+      217 |
+      218 | 			// Title should use "warning" color
+
+      at test/teamsProvider.test.ts:215:24
+      at fulfilled (test/teamsProvider.test.ts:4:58)
+
+  ● TeamsProvider › sendMessage › maps severity to correct Adaptive Card colors
+
+    TypeError: undefined is not iterable (cannot read property Symbol(Symbol.iterator))
+
+      246 | 				await provider.sendMessage(notification, message);
+      247 |
+    > 248 | 				const [, options] = gotPost.mock.calls[0] as [string, { json: any }];
+          | 				                    ^
+      249 | 				const card = options.json.attachments[0].content;
+      250 | 				expect(card.body[0].color).toBe(expected);
+      251 | 			}
+
+      at test/teamsProvider.test.ts:248:25
+      at fulfilled (test/teamsProvider.test.ts:4:58)
+
+FAIL test/monitorService.test.ts
+  ● Test suite failed to run
+
+    Configuration error:
+
+    Could not locate module @/utils/dataUtils.js mapped as:
+    /home/darren/Checkmate/server/src/utils/$1.js.
+
+    Please check your configuration for these entries:
+    {
+      "moduleNameMapper": {
+        "/^@\/utils\/(.*)\.js$/": "/home/darren/Checkmate/server/src/utils/$1.js"
+      },
+      "resolver": undefined
+    }
+
+      at createNoMappedModuleFoundError (node_modules/jest-resolve/build/index.js:1117:17)
+
+FAIL test/superSimpleQueueHelper.test.ts
+  ● Test suite failed to run
+
+    SyntaxError: The requested module '../src/service/infrastructure/SuperSimpleQueue/SuperSimpleQueueHelper.ts' does not provide an export named 'default'
+
+      at async Runtime.linkAndEvaluateModule (node_modules/jest-runtime/build/index.js:684:5)
+
+Test Suites: 3 failed, 3 total
+Tests:       5 failed, 4 passed, 9 total
+Snapshots:   0 total
+Time:        1.262 s, estimated 2 s
+Ran all test suites.
+----------|---------|----------|---------|---------|-------------------
+File      | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s 
+----------|---------|----------|---------|---------|-------------------
+All files |       0 |        0 |       0 |       0 |                   
+----------|---------|----------|---------|---------|-------------------
