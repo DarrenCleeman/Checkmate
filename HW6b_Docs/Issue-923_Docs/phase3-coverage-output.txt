@@ -1,0 +1,31 @@
+
+ RUN  v4.1.5 /home/darren/Checkmate/client
+      Coverage enabled with v8
+
+ ✓ src/Utils/__tests__/InfraUtils.test.ts (15 tests) 12ms
+ ✓ src/Utils/__tests__/MonitorUtils.test.ts (26 tests) 16ms
+ ✓ src/Utils/__tests__/FormatUtils.test.ts (14 tests) 12ms
+ ✓ src/Utils/__tests__/TimeUtils.test.ts (18 tests) 34ms
+ ✓ src/Validation/__tests__/login.test.ts (5 tests) 11ms
+ ✓ src/Validation/__tests__/register.test.ts (12 tests) 15ms
+
+ Test Files  6 passed (6)
+      Tests  90 passed (90)
+   Start at  15:03:05
+   Duration  1.90s (transform 654ms, setup 754ms, import 897ms, tests 101ms, environment 6.59s)
+
+ % Coverage report from v8
+------------------|---------|----------|---------|---------|-------------------
+File              | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s 
+------------------|---------|----------|---------|---------|-------------------
+All files         |   86.77 |       80 |    86.2 |   85.58 |                   
+ Utils            |   85.18 |       80 |      80 |   83.67 |                   
+  FormatUtils.ts  |     100 |      100 |     100 |     100 |                   
+  InfraUtils.ts   |     100 |    88.23 |     100 |     100 | 25-26             
+  MonitorUtils.ts |   72.09 |    70.37 |    62.5 |      70 | 35-40,44-52,66-71 
+  TimeUtils.ts    |   87.09 |       75 |      75 |   86.66 | 19-23             
+ Validation       |     100 |      100 |     100 |     100 |                   
+  login.ts        |     100 |      100 |     100 |     100 |                   
+  patterns.ts     |     100 |      100 |     100 |     100 |                   
+  register.ts     |     100 |      100 |     100 |     100 |                   
+------------------|---------|----------|---------|---------|-------------------

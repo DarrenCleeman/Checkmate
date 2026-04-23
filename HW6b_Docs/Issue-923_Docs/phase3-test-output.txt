@@ -1,0 +1,99 @@
+
+ RUN  v4.1.5 /home/darren/Checkmate/client
+
+ ✓ src/Utils/__tests__/InfraUtils.test.ts > InfraUtils > getFrequency > converts MHz to GHz string 3ms
+ ✓ src/Utils/__tests__/InfraUtils.test.ts > InfraUtils > getFrequency > handles low frequency 0ms
+ ✓ src/Utils/__tests__/InfraUtils.test.ts > InfraUtils > getFrequency > returns N/A for undefined 1ms
+ ✓ src/Utils/__tests__/InfraUtils.test.ts > InfraUtils > getFrequency > returns N/A for 0 0ms
+ ✓ src/Utils/__tests__/InfraUtils.test.ts > InfraUtils > getCores > returns singular for 1 core 0ms
+ ✓ src/Utils/__tests__/InfraUtils.test.ts > InfraUtils > getCores > returns plural for multiple cores 0ms
+ ✓ src/Utils/__tests__/InfraUtils.test.ts > InfraUtils > getCores > returns N/A for undefined 0ms
+ ✓ src/Utils/__tests__/InfraUtils.test.ts > InfraUtils > getCores > returns N/A for 0 1ms
+ ✓ src/Utils/__tests__/InfraUtils.test.ts > InfraUtils > getAvgTemp > calculates average temperature 2ms
+ ✓ src/Utils/__tests__/InfraUtils.test.ts > InfraUtils > getAvgTemp > handles single temperature 0ms
+ ✓ src/Utils/__tests__/InfraUtils.test.ts > InfraUtils > getAvgTemp > returns N/A for empty array 0ms
+ ✓ src/Utils/__tests__/InfraUtils.test.ts > InfraUtils > getAvgTemp > returns N/A for null/undefined 0ms
+ ✓ src/Utils/__tests__/InfraUtils.test.ts > InfraUtils > getOsAndPlatform > returns formatted OS and platform 0ms
+ ✓ src/Utils/__tests__/InfraUtils.test.ts > InfraUtils > getOsAndPlatform > falls back to os field when pretty_name is missing 0ms
+ ✓ src/Utils/__tests__/InfraUtils.test.ts > InfraUtils > getOsAndPlatform > returns N/A for undefined 0ms
+ ✓ src/Utils/__tests__/FormatUtils.test.ts > FormatUtils > formatPercentage > formats a decimal as a percentage string 6ms
+ ✓ src/Utils/__tests__/FormatUtils.test.ts > FormatUtils > formatPercentage > formats 1 as 100.0% 1ms
+ ✓ src/Utils/__tests__/FormatUtils.test.ts > FormatUtils > formatPercentage > formats 0 as 0.0% 1ms
+ ✓ src/Utils/__tests__/FormatUtils.test.ts > FormatUtils > formatPercentage > rounds to one decimal place 0ms
+ ✓ src/Utils/__tests__/FormatUtils.test.ts > FormatUtils > formatPercentage > returns 0.0% for NaN 1ms
+ ✓ src/Utils/__tests__/FormatUtils.test.ts > FormatUtils > formatPercentage > returns 0.0% for non-number input 0ms
+ ✓ src/Utils/__tests__/FormatUtils.test.ts > FormatUtils > formatPercentageFromWhole > converts whole number percentage to formatted string 0ms
+ ✓ src/Utils/__tests__/FormatUtils.test.ts > FormatUtils > formatPercentageFromWhole > handles 100 0ms
+ ✓ src/Utils/__tests__/FormatUtils.test.ts > FormatUtils > formatPercentageFromWhole > handles 0 0ms
+ ✓ src/Utils/__tests__/FormatUtils.test.ts > FormatUtils > formatPercentageFromWhole > rounds fractional whole percentages 0ms
+ ✓ src/Utils/__tests__/FormatUtils.test.ts > FormatUtils > getPercentage > calculates percentage correctly 1ms
+ ✓ src/Utils/__tests__/FormatUtils.test.ts > FormatUtils > getPercentage > returns 100 for equal value and total 0ms
+ ✓ src/Utils/__tests__/FormatUtils.test.ts > FormatUtils > getPercentage > returns 0 when value is 0 0ms
+ ✓ src/Utils/__tests__/FormatUtils.test.ts > FormatUtils > getPercentage > returns 0 when total is 0 0ms
+ ✓ src/Utils/__tests__/MonitorUtils.test.ts > MonitorUtils > getMonitorPath > returns 'uptime' for http monitors 5ms
+ ✓ src/Utils/__tests__/MonitorUtils.test.ts > MonitorUtils > getMonitorPath > returns 'uptime' for ping monitors 1ms
+ ✓ src/Utils/__tests__/MonitorUtils.test.ts > MonitorUtils > getMonitorPath > returns 'uptime' for port monitors 1ms
+ ✓ src/Utils/__tests__/MonitorUtils.test.ts > MonitorUtils > getMonitorPath > returns 'infrastructure' for hardware monitors 0ms
+ ✓ src/Utils/__tests__/MonitorUtils.test.ts > MonitorUtils > getMonitorPath > returns 'pagespeed' for pagespeed monitors 0ms
+ ✓ src/Utils/__tests__/MonitorUtils.test.ts > MonitorUtils > getMonitorPath > returns 'uptime' for docker monitors 0ms
+ ✓ src/Utils/__tests__/MonitorUtils.test.ts > MonitorUtils > getStatusPalette > returns 'success' for 'up' status 0ms
+ ✓ src/Utils/__tests__/MonitorUtils.test.ts > MonitorUtils > getStatusPalette > returns 'error' for 'down' status 0ms
+ ✓ src/Utils/__tests__/MonitorUtils.test.ts > MonitorUtils > getStatusPalette > returns 'error' for 'breached' status 0ms
+ ✓ src/Utils/__tests__/MonitorUtils.test.ts > MonitorUtils > getStatusPalette > returns 'warning' for other statuses 0ms
+ ✓ src/Utils/__tests__/MonitorUtils.test.ts > MonitorUtils > getResponseTimeColor > returns 'success' for fast response times (< 200ms) 1ms
+ ✓ src/Utils/__tests__/MonitorUtils.test.ts > MonitorUtils > getResponseTimeColor > returns 'warning' for moderate response times (200-299ms) 0ms
+ ✓ src/Utils/__tests__/MonitorUtils.test.ts > MonitorUtils > getResponseTimeColor > returns 'error' for slow response times (>= 300ms) 1ms
+ ✓ src/Utils/__tests__/MonitorUtils.test.ts > MonitorUtils > getResponseTimeColor > returns 'success' at boundary 0ms 1ms
+ ✓ src/Utils/__tests__/MonitorUtils.test.ts > MonitorUtils > getResponseTimeColor > returns 'warning' at boundary 200ms 0ms
+ ✓ src/Utils/__tests__/MonitorUtils.test.ts > MonitorUtils > getResponseTimeColor > returns 'error' at boundary 300ms 0ms
+ ✓ src/Utils/__tests__/MonitorUtils.test.ts > MonitorUtils > getPageSpeedPalette > returns 'success' for scores >= 90 0ms
+ ✓ src/Utils/__tests__/MonitorUtils.test.ts > MonitorUtils > getPageSpeedPalette > returns 'warning' for scores 50-89 0ms
+ ✓ src/Utils/__tests__/MonitorUtils.test.ts > MonitorUtils > getPageSpeedPalette > returns 'error' for scores < 50 0ms
+ ✓ src/Utils/__tests__/MonitorUtils.test.ts > MonitorUtils > getPageSpeedPalette > returns 'success' at boundary 90 0ms
+ ✓ src/Utils/__tests__/MonitorUtils.test.ts > MonitorUtils > getPageSpeedPalette > returns 'warning' at boundary 50 0ms
+ ✓ src/Utils/__tests__/MonitorUtils.test.ts > MonitorUtils > formatUrl > strips http:// prefix 0ms
+ ✓ src/Utils/__tests__/MonitorUtils.test.ts > MonitorUtils > formatUrl > strips https:// prefix 0ms
+ ✓ src/Utils/__tests__/MonitorUtils.test.ts > MonitorUtils > formatUrl > truncates long URLs with ellipsis 0ms
+ ✓ src/Utils/__tests__/MonitorUtils.test.ts > MonitorUtils > formatUrl > respects custom maxLength 0ms
+ ✓ src/Utils/__tests__/MonitorUtils.test.ts > MonitorUtils > formatUrl > returns empty string for empty input 1ms
+ ✓ src/Validation/__tests__/login.test.ts > loginSchema > accepts valid email and password 4ms
+ ✓ src/Validation/__tests__/login.test.ts > loginSchema > transforms email to lowercase 0ms
+ ✓ src/Validation/__tests__/login.test.ts > loginSchema > rejects invalid email 1ms
+ ✓ src/Validation/__tests__/login.test.ts > loginSchema > rejects empty email 1ms
+ ✓ src/Validation/__tests__/login.test.ts > loginSchema > rejects empty password 1ms
+ ✓ src/Utils/__tests__/TimeUtils.test.ts > TimeUtils > time constants > defines MS_PER_SECOND as 1000 4ms
+ ✓ src/Utils/__tests__/TimeUtils.test.ts > TimeUtils > time constants > defines MS_PER_MINUTE as 60 seconds 0ms
+ ✓ src/Utils/__tests__/TimeUtils.test.ts > TimeUtils > time constants > defines MS_PER_HOUR as 60 minutes 0ms
+ ✓ src/Utils/__tests__/TimeUtils.test.ts > TimeUtils > time constants > defines MS_PER_DAY as 24 hours 0ms
+ ✓ src/Utils/__tests__/TimeUtils.test.ts > TimeUtils > time constants > defines MS_PER_WEEK as 7 days 0ms
+ ✓ src/Utils/__tests__/TimeUtils.test.ts > TimeUtils > tickDateFormatLookup > returns time format for 'recent' 1ms
+ ✓ src/Utils/__tests__/TimeUtils.test.ts > TimeUtils > tickDateFormatLookup > returns time format for 'day' 0ms
+ ✓ src/Utils/__tests__/TimeUtils.test.ts > TimeUtils > tickDateFormatLookup > returns date+time format for 'week' 0ms
+ ✓ src/Utils/__tests__/TimeUtils.test.ts > TimeUtils > tickDateFormatLookup > returns date format for 'month' 0ms
+ ✓ src/Utils/__tests__/TimeUtils.test.ts > TimeUtils > tickDateFormatLookup > returns empty string for unknown range 0ms
+ ✓ src/Utils/__tests__/TimeUtils.test.ts > TimeUtils > tooltipDateFormatLookup > returns full date format for 'recent' 0ms
+ ✓ src/Utils/__tests__/TimeUtils.test.ts > TimeUtils > tooltipDateFormatLookup > returns full date format for 'week' 0ms
+ ✓ src/Utils/__tests__/TimeUtils.test.ts > TimeUtils > tooltipDateFormatLookup > returns date-only format for 'month' 0ms
+ ✓ src/Utils/__tests__/TimeUtils.test.ts > TimeUtils > tooltipDateFormatLookup > returns empty string for unknown range 0ms
+ ✓ src/Utils/__tests__/TimeUtils.test.ts > TimeUtils > formatTimestamp > returns dash for null 0ms
+ ✓ src/Utils/__tests__/TimeUtils.test.ts > TimeUtils > formatTimestamp > returns dash for empty string 0ms
+ ✓ src/Utils/__tests__/TimeUtils.test.ts > TimeUtils > formatTimestamp > formats a valid ISO string 18ms
+ ✓ src/Utils/__tests__/TimeUtils.test.ts > TimeUtils > formatTimestamp > formats a numeric timestamp 0ms
+ ✓ src/Validation/__tests__/register.test.ts > registerSchema > accepts valid registration data 5ms
+ ✓ src/Validation/__tests__/register.test.ts > registerSchema > lowercases email 1ms
+ ✓ src/Validation/__tests__/register.test.ts > registerSchema > trims first and last name 1ms
+ ✓ src/Validation/__tests__/register.test.ts > registerSchema > rejects empty first name 2ms
+ ✓ src/Validation/__tests__/register.test.ts > registerSchema > rejects first name over 50 characters 1ms
+ ✓ src/Validation/__tests__/register.test.ts > registerSchema > rejects invalid email 0ms
+ ✓ src/Validation/__tests__/register.test.ts > registerSchema > rejects password shorter than 8 characters 0ms
+ ✓ src/Validation/__tests__/register.test.ts > registerSchema > rejects password without uppercase letter 1ms
+ ✓ src/Validation/__tests__/register.test.ts > registerSchema > rejects password without lowercase letter 1ms
+ ✓ src/Validation/__tests__/register.test.ts > registerSchema > rejects password without number 0ms
+ ✓ src/Validation/__tests__/register.test.ts > registerSchema > rejects password without special character 1ms
+ ✓ src/Validation/__tests__/register.test.ts > registerSchema > rejects mismatched passwords 1ms
+
+ Test Files  6 passed (6)
+      Tests  90 passed (90)
+   Start at  15:02:53
+   Duration  1.66s (transform 651ms, setup 595ms, import 804ms, tests 100ms, environment 6.24s)
+
