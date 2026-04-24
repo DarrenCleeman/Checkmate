@@ -1,0 +1,15 @@
+
+> client@0.0.0 lint
+> eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0
+
+
+/home/darren/Checkmate/client/src/Validation/validation.js
+   23:30  error  Unnecessary escape character: \.  no-useless-escape
+   34:30  error  Unnecessary escape character: \.  no-useless-escape
+  417:56  error  Unnecessary escape character: \.  no-useless-escape
+  417:69  error  Unnecessary escape character: \.  no-useless-escape
+  417:90  error  Unnecessary escape character: \/  no-useless-escape
+  417:95  error  Unnecessary escape character: \.  no-useless-escape
+
+✖ 6 problems (6 errors, 0 warnings)
+

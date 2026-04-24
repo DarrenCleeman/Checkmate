@@ -1,0 +1,138 @@
+
+ RUN  v4.1.5 /home/darren/Checkmate/client
+
+ ✓ src/Utils/__tests__/FormatUtils.test.ts > FormatUtils > formatPercentage > formats a decimal as a percentage string 4ms
+ ✓ src/Utils/__tests__/FormatUtils.test.ts > FormatUtils > formatPercentage > formats 1 as 100.0% 0ms
+ ✓ src/Utils/__tests__/FormatUtils.test.ts > FormatUtils > formatPercentage > formats 0 as 0.0% 1ms
+ ✓ src/Utils/__tests__/FormatUtils.test.ts > FormatUtils > formatPercentage > rounds to one decimal place 1ms
+ ✓ src/Utils/__tests__/FormatUtils.test.ts > FormatUtils > formatPercentage > returns 0.0% for NaN 1ms
+ ✓ src/Utils/__tests__/FormatUtils.test.ts > FormatUtils > formatPercentage > returns 0.0% for non-number input 1ms
+ ✓ src/Utils/__tests__/FormatUtils.test.ts > FormatUtils > formatPercentageFromWhole > converts whole number percentage to formatted string 1ms
+ ✓ src/Utils/__tests__/FormatUtils.test.ts > FormatUtils > formatPercentageFromWhole > handles 100 0ms
+ ✓ src/Utils/__tests__/FormatUtils.test.ts > FormatUtils > formatPercentageFromWhole > handles 0 1ms
+ ✓ src/Utils/__tests__/FormatUtils.test.ts > FormatUtils > formatPercentageFromWhole > rounds fractional whole percentages 1ms
+ ✓ src/Utils/__tests__/FormatUtils.test.ts > FormatUtils > getPercentage > calculates percentage correctly 1ms
+ ✓ src/Utils/__tests__/FormatUtils.test.ts > FormatUtils > getPercentage > returns 100 for equal value and total 0ms
+ ✓ src/Utils/__tests__/FormatUtils.test.ts > FormatUtils > getPercentage > returns 0 when value is 0 0ms
+ ✓ src/Utils/__tests__/FormatUtils.test.ts > FormatUtils > getPercentage > returns 0 when total is 0 1ms
+ ✓ src/Utils/__tests__/InfraUtils.test.ts > InfraUtils > getFrequency > converts MHz to GHz string 6ms
+ ✓ src/Utils/__tests__/InfraUtils.test.ts > InfraUtils > getFrequency > handles low frequency 1ms
+ ✓ src/Utils/__tests__/InfraUtils.test.ts > InfraUtils > getFrequency > returns N/A for undefined 0ms
+ ✓ src/Utils/__tests__/InfraUtils.test.ts > InfraUtils > getFrequency > returns N/A for 0 0ms
+ ✓ src/Utils/__tests__/InfraUtils.test.ts > InfraUtils > getCores > returns singular for 1 core 0ms
+ ✓ src/Utils/__tests__/InfraUtils.test.ts > InfraUtils > getCores > returns plural for multiple cores 0ms
+ ✓ src/Utils/__tests__/InfraUtils.test.ts > InfraUtils > getCores > returns N/A for undefined 0ms
+ ✓ src/Utils/__tests__/InfraUtils.test.ts > InfraUtils > getCores > returns N/A for 0 0ms
+ ✓ src/Utils/__tests__/InfraUtils.test.ts > InfraUtils > getAvgTemp > calculates average temperature 1ms
+ ✓ src/Utils/__tests__/InfraUtils.test.ts > InfraUtils > getAvgTemp > handles single temperature 1ms
+ ✓ src/Utils/__tests__/InfraUtils.test.ts > InfraUtils > getAvgTemp > returns N/A for empty array 0ms
+ ✓ src/Utils/__tests__/InfraUtils.test.ts > InfraUtils > getAvgTemp > returns N/A for null/undefined 0ms
+ ✓ src/Utils/__tests__/InfraUtils.test.ts > InfraUtils > getOsAndPlatform > returns formatted OS and platform 0ms
+ ✓ src/Utils/__tests__/InfraUtils.test.ts > InfraUtils > getOsAndPlatform > falls back to os field when pretty_name is missing 1ms
+ ✓ src/Utils/__tests__/InfraUtils.test.ts > InfraUtils > getOsAndPlatform > returns N/A for undefined 1ms
+ ✓ src/Utils/__tests__/MonitorUtils.test.ts > MonitorUtils > getMonitorPath > returns 'uptime' for http monitors 3ms
+ ✓ src/Utils/__tests__/MonitorUtils.test.ts > MonitorUtils > getMonitorPath > returns 'uptime' for ping monitors 0ms
+ ✓ src/Utils/__tests__/MonitorUtils.test.ts > MonitorUtils > getMonitorPath > returns 'uptime' for port monitors 0ms
+ ✓ src/Utils/__tests__/MonitorUtils.test.ts > MonitorUtils > getMonitorPath > returns 'infrastructure' for hardware monitors 0ms
+ ✓ src/Utils/__tests__/MonitorUtils.test.ts > MonitorUtils > getMonitorPath > returns 'pagespeed' for pagespeed monitors 0ms
+ ✓ src/Utils/__tests__/MonitorUtils.test.ts > MonitorUtils > getMonitorPath > returns 'uptime' for docker monitors 0ms
+ ✓ src/Utils/__tests__/MonitorUtils.test.ts > MonitorUtils > getStatusPalette > returns 'success' for 'up' status 0ms
+ ✓ src/Utils/__tests__/MonitorUtils.test.ts > MonitorUtils > getStatusPalette > returns 'error' for 'down' status 0ms
+ ✓ src/Utils/__tests__/MonitorUtils.test.ts > MonitorUtils > getStatusPalette > returns 'error' for 'breached' status 1ms
+ ✓ src/Utils/__tests__/MonitorUtils.test.ts > MonitorUtils > getStatusPalette > returns 'warning' for other statuses 0ms
+ ✓ src/Utils/__tests__/MonitorUtils.test.ts > MonitorUtils > getResponseTimeColor > returns 'success' for fast response times (< 200ms) 0ms
+ ✓ src/Utils/__tests__/MonitorUtils.test.ts > MonitorUtils > getResponseTimeColor > returns 'warning' for moderate response times (200-299ms) 4ms
+ ✓ src/Utils/__tests__/MonitorUtils.test.ts > MonitorUtils > getResponseTimeColor > returns 'error' for slow response times (>= 300ms) 1ms
+ ✓ src/Utils/__tests__/MonitorUtils.test.ts > MonitorUtils > getResponseTimeColor > returns 'success' at boundary 0ms 3ms
+ ✓ src/Utils/__tests__/MonitorUtils.test.ts > MonitorUtils > getResponseTimeColor > returns 'warning' at boundary 200ms 1ms
+ ✓ src/Utils/__tests__/MonitorUtils.test.ts > MonitorUtils > getResponseTimeColor > returns 'error' at boundary 300ms 1ms
+ ✓ src/Utils/__tests__/MonitorUtils.test.ts > MonitorUtils > getPageSpeedPalette > returns 'success' for scores >= 90 0ms
+ ✓ src/Utils/__tests__/MonitorUtils.test.ts > MonitorUtils > getPageSpeedPalette > returns 'warning' for scores 50-89 1ms
+ ✓ src/Utils/__tests__/MonitorUtils.test.ts > MonitorUtils > getPageSpeedPalette > returns 'error' for scores < 50 1ms
+ ✓ src/Utils/__tests__/MonitorUtils.test.ts > MonitorUtils > getPageSpeedPalette > returns 'success' at boundary 90 1ms
+ ✓ src/Utils/__tests__/MonitorUtils.test.ts > MonitorUtils > getPageSpeedPalette > returns 'warning' at boundary 50 0ms
+ ✓ src/Utils/__tests__/MonitorUtils.test.ts > MonitorUtils > formatUrl > strips http:// prefix 1ms
+ ✓ src/Utils/__tests__/MonitorUtils.test.ts > MonitorUtils > formatUrl > strips https:// prefix 0ms
+ ✓ src/Utils/__tests__/MonitorUtils.test.ts > MonitorUtils > formatUrl > truncates long URLs with ellipsis 1ms
+ ✓ src/Utils/__tests__/MonitorUtils.test.ts > MonitorUtils > formatUrl > respects custom maxLength 0ms
+ ✓ src/Utils/__tests__/MonitorUtils.test.ts > MonitorUtils > formatUrl > returns empty string for empty input 0ms
+ ✓ src/Utils/__tests__/TimeUtils.test.ts > TimeUtils > time constants > defines MS_PER_SECOND as 1000 4ms
+ ✓ src/Utils/__tests__/TimeUtils.test.ts > TimeUtils > time constants > defines MS_PER_MINUTE as 60 seconds 0ms
+ ✓ src/Utils/__tests__/TimeUtils.test.ts > TimeUtils > time constants > defines MS_PER_HOUR as 60 minutes 0ms
+ ✓ src/Utils/__tests__/TimeUtils.test.ts > TimeUtils > time constants > defines MS_PER_DAY as 24 hours 0ms
+ ✓ src/Utils/__tests__/TimeUtils.test.ts > TimeUtils > time constants > defines MS_PER_WEEK as 7 days 0ms
+ ✓ src/Utils/__tests__/TimeUtils.test.ts > TimeUtils > tickDateFormatLookup > returns time format for 'recent' 0ms
+ ✓ src/Utils/__tests__/TimeUtils.test.ts > TimeUtils > tickDateFormatLookup > returns time format for 'day' 0ms
+ ✓ src/Utils/__tests__/TimeUtils.test.ts > TimeUtils > tickDateFormatLookup > returns date+time format for 'week' 0ms
+ ✓ src/Utils/__tests__/TimeUtils.test.ts > TimeUtils > tickDateFormatLookup > returns date format for 'month' 1ms
+ ✓ src/Utils/__tests__/TimeUtils.test.ts > TimeUtils > tickDateFormatLookup > returns empty string for unknown range 0ms
+ ✓ src/Utils/__tests__/TimeUtils.test.ts > TimeUtils > tooltipDateFormatLookup > returns full date format for 'recent' 1ms
+ ✓ src/Utils/__tests__/TimeUtils.test.ts > TimeUtils > tooltipDateFormatLookup > returns full date format for 'week' 0ms
+ ✓ src/Utils/__tests__/TimeUtils.test.ts > TimeUtils > tooltipDateFormatLookup > returns date-only format for 'month' 0ms
+ ✓ src/Utils/__tests__/TimeUtils.test.ts > TimeUtils > tooltipDateFormatLookup > returns empty string for unknown range 1ms
+ ✓ src/Utils/__tests__/TimeUtils.test.ts > TimeUtils > formatTimestamp > returns dash for null 1ms
+ ✓ src/Utils/__tests__/TimeUtils.test.ts > TimeUtils > formatTimestamp > returns dash for empty string 0ms
+ ✓ src/Utils/__tests__/TimeUtils.test.ts > TimeUtils > formatTimestamp > formats a valid ISO string 31ms
+ ✓ src/Utils/__tests__/TimeUtils.test.ts > TimeUtils > formatTimestamp > formats a numeric timestamp 1ms
+ ✓ src/Validation/__tests__/login.test.ts > loginSchema > accepts valid email and password 5ms
+ ✓ src/Validation/__tests__/login.test.ts > loginSchema > transforms email to lowercase 1ms
+ ✓ src/Validation/__tests__/login.test.ts > loginSchema > rejects invalid email 4ms
+ ✓ src/Validation/__tests__/login.test.ts > loginSchema > rejects empty email 1ms
+ ✓ src/Validation/__tests__/login.test.ts > loginSchema > rejects empty password 1ms
+ ✓ src/Validation/__tests__/register.test.ts > registerSchema > accepts valid registration data 6ms
+ ✓ src/Validation/__tests__/register.test.ts > registerSchema > lowercases email 2ms
+ ✓ src/Validation/__tests__/register.test.ts > registerSchema > trims first and last name 2ms
+ ✓ src/Validation/__tests__/register.test.ts > registerSchema > rejects empty first name 2ms
+ ✓ src/Validation/__tests__/register.test.ts > registerSchema > rejects first name over 50 characters 1ms
+ ✓ src/Validation/__tests__/register.test.ts > registerSchema > rejects invalid email 1ms
+ ✓ src/Validation/__tests__/register.test.ts > registerSchema > rejects password shorter than 8 characters 2ms
+ ✓ src/Validation/__tests__/register.test.ts > registerSchema > rejects password without uppercase letter 1ms
+ ✓ src/Validation/__tests__/register.test.ts > registerSchema > rejects password without lowercase letter 1ms
+ ✓ src/Validation/__tests__/register.test.ts > registerSchema > rejects password without number 0ms
+ ✓ src/Validation/__tests__/register.test.ts > registerSchema > rejects password without special character 0ms
+ ✓ src/Validation/__tests__/register.test.ts > registerSchema > rejects mismatched passwords 0ms
+ ✓ src/Hooks/__tests__/useDebounce.test.ts > useDebounce > returns the initial value immediately 28ms
+ ✓ src/Hooks/__tests__/useDebounce.test.ts > useDebounce > does not update value before delay 7ms
+ ✓ src/Hooks/__tests__/useDebounce.test.ts > useDebounce > updates value after delay 7ms
+ ✓ src/Hooks/__tests__/useDebounce.test.ts > useDebounce > resets timer on rapid value changes 6ms
+ ✓ src/Hooks/__tests__/useDebounce.test.ts > useDebounce > works with number values 4ms
+ ✓ src/Hooks/__tests__/useDebounce.test.ts > useDebounce > respects different delay values 4ms
+stderr | src/Components/inputs/__tests__/Button.test.tsx > ButtonInput > renders with provided text
+⚠️ React Router Future Flag Warning: React Router will begin wrapping state updates in `React.startTransition` in v7. You can use the `v7_startTransition` future flag to opt-in early. For more information, see https://reactrouter.com/v6/upgrading/future#v7_starttransition.
+⚠️ React Router Future Flag Warning: Relative route resolution within Splat routes is changing in v7. You can use the `v7_relativeSplatPath` future flag to opt-in early. For more information, see https://reactrouter.com/v6/upgrading/future#v7_relativesplatpath.
+
+stderr | src/Components/inputs/__tests__/TextInput.test.tsx > TextInput > renders without crashing
+⚠️ React Router Future Flag Warning: React Router will begin wrapping state updates in `React.startTransition` in v7. You can use the `v7_startTransition` future flag to opt-in early. For more information, see https://reactrouter.com/v6/upgrading/future#v7_starttransition.
+⚠️ React Router Future Flag Warning: Relative route resolution within Splat routes is changing in v7. You can use the `v7_relativeSplatPath` future flag to opt-in early. For more information, see https://reactrouter.com/v6/upgrading/future#v7_relativesplatpath.
+
+ ✓ src/Components/inputs/__tests__/Button.test.tsx > ButtonInput > renders with provided text 328ms
+ ✓ src/Components/inputs/__tests__/Button.test.tsx > ButtonInput > handles click events 83ms
+stderr | src/Components/inputs/__tests__/Checkbox.test.tsx > CheckboxInput > renders without crashing
+⚠️ React Router Future Flag Warning: React Router will begin wrapping state updates in `React.startTransition` in v7. You can use the `v7_startTransition` future flag to opt-in early. For more information, see https://reactrouter.com/v6/upgrading/future#v7_starttransition.
+⚠️ React Router Future Flag Warning: Relative route resolution within Splat routes is changing in v7. You can use the `v7_relativeSplatPath` future flag to opt-in early. For more information, see https://reactrouter.com/v6/upgrading/future#v7_relativesplatpath.
+
+ ✓ src/Components/inputs/__tests__/TextInput.test.tsx > TextInput > renders without crashing 411ms
+ ✓ src/Components/inputs/__tests__/Button.test.tsx > ButtonInput > respects disabled state 35ms
+ ✓ src/Components/inputs/__tests__/Button.test.tsx > ButtonInput > renders with contained variant by default 37ms
+ ✓ src/Components/inputs/__tests__/Button.test.tsx > ButtonInput > renders with outlined variant 48ms
+ ✓ src/Components/inputs/__tests__/Button.test.tsx > ButtonInput > applies custom sx props 43ms
+ ✓ src/Components/inputs/__tests__/Checkbox.test.tsx > CheckboxInput > renders without crashing 363ms
+ ✓ src/Components/inputs/__tests__/Checkbox.test.tsx > CheckboxInput > sets aria-label from label prop 13ms
+ ✓ src/Components/inputs/__tests__/Checkbox.test.tsx > CheckboxInput > is unchecked by default 49ms
+ ✓ src/Components/inputs/__tests__/TextInput.test.tsx > TextInput > accepts and displays user input 158ms
+ ✓ src/Components/inputs/__tests__/TextInput.test.tsx > TextInput > renders with a field label 37ms
+ ✓ src/Components/inputs/__tests__/TextInput.test.tsx > TextInput > shows required indicator when required 20ms
+ ✓ src/Components/inputs/__tests__/Checkbox.test.tsx > CheckboxInput > can be checked by clicking 84ms
+ ✓ src/Components/inputs/__tests__/Checkbox.test.tsx > CheckboxInput > renders as checked when defaultChecked 38ms
+ ✓ src/Components/inputs/__tests__/Checkbox.test.tsx > CheckboxInput > respects disabled state 41ms
+ ✓ src/Components/inputs/__tests__/Checkbox.test.tsx > CheckboxInput > applies custom sx props 46ms
+ ✓ src/Components/inputs/__tests__/TextInput.test.tsx > TextInput > renders without field label wrapper when no label provided 16ms
+ ✓ src/Components/inputs/__tests__/TextInput.test.tsx > TextInput > displays helper text 19ms
+ ✓ src/Components/inputs/__tests__/TextInput.test.tsx > TextInput > respects disabled state 69ms
+ ✓ src/Components/inputs/__tests__/TextInput.test.tsx > TextInput > calls onChange handler 73ms
+
+ Test Files  10 passed (10)
+      Tests  117 passed (117)
+   Start at  02:03:09
+   Duration  4.39s (transform 1.58s, setup 1.54s, import 5.82s, tests 2.23s, environment 16.68s)
+
